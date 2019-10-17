@@ -11,7 +11,7 @@
   <button onclick="connect()" style="flex: center;">Connect</button>
 </div>
     <script>
-        
+        function reconnection(){
         // -------- websocket ----  
     let wsProtocol = 'ws://';
     let protocol = window.location.protocol;
@@ -40,6 +40,16 @@
       handleMessage(message);
       
     };
+        
+        ws.onclose = function(evt) {
+    console.log('Socket is closed. Reconnect will be attempted in 1 second.', evt.reason);
+    setTimeout(function() {
+      reconnection();
+    }, 1000);
+  };
+            reconnection()
+
+}
     function handleMessage(message) {
       const fromId = message.from;
       
