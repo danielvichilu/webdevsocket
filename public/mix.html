@@ -10,7 +10,12 @@
   
     <script>
         // -------- websocket ----
-let wsProtocol = 'ws://';
+
+
+
+
+function reconnection(){
+  let wsProtocol = 'ws://';
 let protocol = window.location.protocol;
 if  (protocol === 'https:') {
   wsProtocol = 'wss://';
@@ -27,6 +32,15 @@ ws.onmessage = function(evt) {
   const message = JSON.parse(evt.data);
   handleMessage(message);
 };
+ws.onclose = function(evt) {
+    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+    setTimeout(function() {
+      connect();
+    }, 1000);
+  };
+
+}
+
 function handleMessage(message) {
   const from = message.from;
 
@@ -41,7 +55,7 @@ function handleMessage(message) {
   }
 }
 
-
+reconnection()
 
   function connect() {
   call();
