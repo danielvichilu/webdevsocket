@@ -11,8 +11,26 @@
   <button onclick="connect()" style="flex: center;">Connect</button>
 </div>
     <script>
-        function reconnection(){
-        // -------- websocket ----  
+        
+       
+        
+  
+
+
+        
+    function handleMessage(message) {
+      const fromId = message.from;
+      
+      if (message.type === 'call') {
+        if (isConnected(fromId)) {
+          console.warn('ALREADY connecte, so ignore call');
+        }
+          return;
+        }
+        
+    }
+    function connect() {
+         // -------- websocket ----  
     let wsProtocol = 'ws://';
     let protocol = window.location.protocol;
     if  (protocol === 'https:') {
@@ -40,28 +58,6 @@
       handleMessage(message);
       
     };
-        
-        ws.onclose = function(evt) {
-    console.log('Socket is closed. Reconnect will be attempted in 1 second.', evt.reason);
-    setTimeout(function() {
-      reconnection();
-    }, 1000);
-  };
-            reconnection()
-
-}
-    function handleMessage(message) {
-      const fromId = message.from;
-      
-      if (message.type === 'call') {
-        if (isConnected(fromId)) {
-          console.warn('ALREADY connecte, so ignore call');
-        }
-          return;
-        }
-        
-    }
-    function connect() {
     callMe(); // MUST BE REQUEST CALL
 
    
