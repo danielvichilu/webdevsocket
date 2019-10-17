@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // -------- websocket ----  
+    let wsProtocol = 'ws://';
+    let protocol = window.location.protocol;
+    if  (protocol === 'https:') {
+      wsProtocol = 'wss://';
+    }
+    let wsUrl = wsProtocol +  window.location.hostname + ':' + window.location.port + '/';
+    console.log('websocket url=' + wsUrl);
+    let ws = new WebSocket(wsUrl);
+    ws.onopen = function(evt) {
+     
+
+     
+
+      console.log('ws open()');
+      connect();
+    };
+    ws.onerror = function(err) {
+      console.error('ws onerror() ERR:', err);
+
+      
+    };
+    ws.onmessage = function(evt) {
+      const message = JSON.parse(evt.data);
+  
+      handleMessage(message);
+      
+    };
+    function handleMessage(message) {
+      const fromId = message.from;
+      
+      if (message.type === 'call') {
+        if (isConnected(fromId)) {
+          console.warn('ALREADY connecte, so ignore call');
+        }
+          return;
+        }
+        
+    }
+    function connect() {
+    callMe(); // MUST BE REQUEST CALL
+
+   
+  }
+  function broadcastJson(json) {
+    
+    // --- websocket --
+    const message = JSON.stringify(json);
+    ws.send(message);
+  }
+  function callMe() {
+    console.log('calling ..');
+    broadcastJson({type: "callme"});
+  }
+        
+        </script>
+</body>
+</html>

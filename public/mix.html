@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  
+    <script>
+        // -------- websocket ----
+let wsProtocol = 'ws://';
+let protocol = window.location.protocol;
+if  (protocol === 'https:') {
+  wsProtocol = 'wss://';
+}
+let wsUrl = wsProtocol +  window.location.hostname + ':' + window.location.port + '/';
+let ws = new WebSocket(wsUrl);
+ws.onopen = function(evt) {
+  console.log('ws open()');
+};
+ws.onerror = function(err) {
+  console.error('ws onerror() ERR:', err);
+};
+ws.onmessage = function(evt) {
+  const message = JSON.parse(evt.data);
+  handleMessage(message);
+};
+function handleMessage(message) {
+  const from = message.from;
+
+  if (message.type === 'call') {
+    console.log('ignore call');
+    return;
+  }
+  else if (message.type === 'callme') {
+    // --- request from MCU --
+    console.log('got callme from user.html' );
+ 
+  }
+}
+
+
+
+  function connect() {
+  call();
+ 
+}
+function broadcastJson(json) {
+    
+    // --- websocket --
+    const message = JSON.stringify(json);
+    ws.send(message);
+  }
+function call() {
+  console.log('calling ..');
+  broadcastJson({type: "call"});
+}
+</script>
+</body>
+</html>
