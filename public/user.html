@@ -58,16 +58,17 @@
       handleMessage(message);
       
     };
-    callMe(); // MUST BE REQUEST CALL
-
-   
-  }
-  function broadcastJson(json) {
+        function broadcastJson(json) {
     
     // --- websocket --
     const message = JSON.stringify(json);
     ws.send(message);
   }
+    callMe(); // MUST BE REQUEST CALL
+
+   
+  }
+  
   function callMe() {
     console.log('calling ..');
     broadcastJson({type: "callme"});
