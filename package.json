@@ -1,0 +1,25 @@
+{
+  "name": "localvideos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielvichilu/webdevsocket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielvichilu/webdevsocket/issues"
+  },
+  "homepage": "https://github.com/danielvichilu/webdevsocket#readme"
+}
